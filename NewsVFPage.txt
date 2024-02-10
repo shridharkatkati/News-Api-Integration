@@ -1,0 +1,130 @@
+<apex:page controller="newsIntegration">
+    <style>
+        body {
+            font-family: sans-serif !important;
+            font-size: small !important;
+        	padding-left:10px !important;
+        	padding-right:10px !important;
+        	padding-top : 10px !important;
+        	
+        	<!-- background: rgb(131,58,180) !important;
+			background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%) !important;
+        	-->
+        
+        	background: rgb(156,11,79) !important;
+			background: linear-gradient(273deg, rgba(156,11,79,0.9724264705882353) 10%, rgba(93,93,184,0.969625350140056) 41%, rgba(255,16,0,0.9528186274509804) 100%)!important;
+        
+        	  <!-- background: rgb(131,58,180) !important;
+			background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(255,205,205,1) 50%, rgba(252,176,69,1) 100%) !important;
+			--> 
+        	<!--background: rgb(238,174,202) !important;
+			background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%) !important;
+			-->
+        }
+        
+        a{
+        	color:blue;
+        }
+
+        img {
+            height: 250px;
+            width: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        	margin-bottom : 20px;
+        }
+
+        span {
+            font-size: 11px;
+        }
+
+        .grid-Container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 15px;
+            row-gap: 15px;
+        }
+
+        .title {
+            font-size: 20px;
+        }
+
+        .description {
+            font-size: 13px;
+        }
+        
+        .container{
+        	background-color : white;
+        	padding: 5px 5px 5px 5px; 
+        	border-radius: 10px;
+        	box-shadow: 0px 0px 10px rgba(0,0,0,0.5) ;
+        }
+        .inputBox, .options {
+        	border: 1px solid #ccc;
+        	padding:5px;
+            margin: 10px 10px 20px 20px;
+            border-radius: 4px;
+        	box-shadow: 0px 0px 10px rgba(0,0,0,0.1) ;
+        	opacity: 0.7;
+        }
+        .inputBox{	
+        	width : 300px;
+        }
+        .options{
+        	text-align: center;	
+        	width : 150px;
+        }
+        .findNewsButton{
+        	border: 1px solid #ccc !important;
+        	padding:10px !important;
+            margin: 10px 10px 20px 20px !important;
+            border-radius: 10px !important;
+        	background-color: black !important;
+        	box-shadow: 0px 0px 10px rgba(0,0,0,0.1) !important;
+        }
+    </style>
+
+    <apex:form id="render">
+        <apex:selectList styleClass="options" value="{!language}" size="1">
+            <apex:selectOption itemLabel="English" itemValue="en" />
+            <apex:selectOption itemLabel="Arabic" itemValue="ar" />
+            <apex:selectOption itemLabel="German" itemValue="de" />
+            <apex:selectOption itemLabel="Spanish" itemValue="es" />
+            <apex:selectOption itemLabel="French" itemValue="fr" />
+            <apex:selectOption itemLabel="Hindi" itemValue="hi" />
+            <apex:selectOption itemLabel="Italian" itemValue="it" />
+            <apex:selectOption itemLabel="Dutch" itemValue="nl" />
+            <apex:selectOption itemLabel="Norwegian" itemValue="no" />
+            <apex:selectOption itemLabel="Portuguese" itemValue="pt" />
+            <apex:selectOption itemLabel="Russian" itemValue="ru" />
+            <apex:selectOption itemLabel="Swedish" itemValue="sv" />
+            <apex:selectOption itemLabel=" Chinese (Mandarin)" itemValue="zh" />
+        </apex:selectList>
+        <apex:inputText styleClass="inputBox" value="{!query}" />
+        <apex:selectList styleClass="options" value="{!sortBy}" size="1">
+            <apex:selectOption itemLabel="Relevant Articles" itemValue="relevancy" /> <!-- all relavant articles -->
+            <apex:selectOption itemLabel="Popular Articles" itemValue="popularity" /> <!-- most popular articles -->
+            <apex:selectOption itemLabel="Latest Articles" itemValue="publishedAt" /> <!-- latest articles -->
+        </apex:selectList>
+        <apex:commandButton styleClass="findNewsButton" value="Find news!" action="{!searchQuery}" rerender="render"/>
+
+        <!-- Outer div for the grid -->
+        <div class="grid-Container">
+            <apex:repeat value="{!usefulArticlesFields}" var="mapItem">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(mapItem['author']) || ISBLANK(mapItem['title']) || ISBLANK(mapItem['description']) || ISBLANK(mapItem['url']) || ISBLANK(mapItem['urlToImage']))}">
+                    <!-- Each mapItem is wrapped in a separate grid item -->
+                    <div class="container">
+                        <img src="{!mapItem['urlToImage']}" alt=""/>
+                        <div class="title">
+                            {!mapItem['title']} <br/><br/>
+                            <span>  Author: {!mapItem['author']}</span>
+                        </div>
+                        <br/>
+                        <div class="description">{!mapItem['description']}</div>
+                        <a class="description" target="_blank" href="{!mapItem['url']}">read more</a>
+                    </div>
+                </apex:outputPanel>
+            </apex:repeat>
+        </div>
+    </apex:form>
+</apex:page>
