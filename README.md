@@ -44,6 +44,8 @@ Integrating News API with Salesforce and enabling searching for news in multiple
 
 ### Demonstration
 
+https://github.com/shridharkatkati/News-Api-Integration/assets/54983328/0b89b96f-24fa-4550-b6a0-c023c8fcba22
 
-https://github.com/shridharkatkati/News-Api-Integration/assets/54983328/23fb6220-f9c9-477b-8631-28a7d8c051f2
+
+
 
