@@ -43,3 +43,7 @@ Integrating News API with Salesforce and enabling searching for news in multiple
 - Navigate to the solution on which you've enabled the Visualforce tab.
 
 ### Demonstration
+
+
+https://github.com/shridharkatkati/News-Api-Integration/assets/54983328/23fb6220-f9c9-477b-8631-28a7d8c051f2
+
